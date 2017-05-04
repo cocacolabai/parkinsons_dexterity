@@ -1,0 +1,94 @@
+<div class="container">
+
+	<div class="row">
+
+		<!-- SEARCH SIDE BAR -->
+		<div class="col-sm-6">
+
+			<div class="search-container">
+
+				<div class="title-box"><h4>Dexterity Performance Experiment</h4></div>
+
+				<div class="row">
+
+					<!-- EXPERIMENT ID -->
+					<div class="col-sm-12">
+						<label class="field-label">Experiment ID:</label>
+						<div class="search-box">
+							<input type="text" placeholder="Experiment ID" ng-model="filter.id">
+						</div>
+					</div>
+					
+
+					<!-- PARTICIPANT NAME -->
+					<div class="col-sm-12">
+						<label class="field-label">Participant Name:</label>
+						<div class="search-box">
+							<input type="text" placeholder="Participant Name" ng-model="filter.name">
+						</div>
+					</div>
+
+					<!-- Duration -->
+					<div class="col-sm-12">
+						<label class="field-label">Duration (seconds):</label>
+						<div class="search-box">
+							<input type="number" placeholder="Duration" ng-model="filter.duration">
+						</div>
+					</div>
+
+					<!-- KEYS -->
+					<div class="col-sm-12">
+						<label class="field-label">Target Keys:</label>
+						<!-- <p class="help-block">Begin experiment with the {{filter.key_left}} key.</p> -->
+						<div class="search-box">
+							<input type="text" placeholder="Left" ng-model="filter.key_left">
+						</div>
+						<div class="search-box">
+							<input type="text" placeholder="Right" ng-model="filter.key_right">
+						</div>
+					</div>
+
+					<!-- KEYBOARD ROTATION -->
+					<div class="col-sm-12">
+
+						<label class="field-label">Keyboard Rotation (degrees):</label>
+
+						<div class="search-box">
+
+							<select 
+								class="form-control" 
+								ng-model="filter.rotation" 
+								ng-options="rotation for rotation in rotations">
+							</select>
+
+						</div>
+					</div>
+
+
+					<!-- SUBMIT -->
+					<div class="col-sm-12">
+						<div class="search-box">
+							<button ng-click="loadDefaults()" class="btn btn-success btn-splash">Reset</button>
+							<button ng-click="beginExperiment()" class="btn btn-success btn-splash">Begin</button>
+						</div>
+					</div>
+
+
+					<!-- EXPERIMENT STATUS -->
+					<div class="pull-left">
+						<div class="col-sm-12">
+							<label class="field-label">
+								Recorder: {{ recorder_state }}
+							</label>
+						</div>
+					</div>
+
+				</div> <!-- ROW Container -->
+
+			</div> <!-- Search Container -->
+
+		</div> <!-- SEARCH SIDE BAR -->
+
+	</div>  <!-- END-ROW -->
+
+</div> <!-- END-CONTAINER -->
