@@ -15,17 +15,18 @@ let mainWindow = null;
 function createWindow () {
 
     const name = "Dexterity Experiment";
-    const height = 600;
+    const height = 700;
     const width = 800;
+    const resizable = false;
 
     // Create the browser window.
-    mainWindow = new BrowserWindow( {name, height, width} );
+    mainWindow = new BrowserWindow({ name, height, width, resizable });
 
     // Load HTML Index File 
     mainWindow.loadURL('file://' + __dirname + "/index.html");
     
     // Open the DevTools.
-    mainWindow.webContents.openDevTools( {detach: false} );
+    // mainWindow.webContents.openDevTools( {detach: false} );
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {

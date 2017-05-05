@@ -2,15 +2,17 @@
 
 app.controller('ExperimentController', experimentController);
 
-experimentController.$inject = ['$scope', 'ExperimentService', 'StatsService', 'RecorderService'];
+experimentController.$inject = ['$scope', 'ExperimentService', 'StatsService', 'RecorderService', 'ReporterService'];
 
-function experimentController ($scope, ExperimentService, StatsService, RecorderService) {
+function experimentController ($scope, ExperimentService, StatsService, RecorderService, ReporterService) {
 	
 	
 	/* Set Default Experiment Form Options */
 	const loadDefaults = () => {
 		$scope.filter = {};
-		$scope.filter.duration = 3;
+		$scope.filter.id = 1;
+		$scope.filter.name = "Kurt DaCosta";
+		$scope.filter.duration = 1;
 		$scope.filter.rotation = "0";
 		$scope.filter.key_left = "W".toLowerCase();
 		$scope.filter.key_right = "O".toLowerCase();
@@ -38,7 +40,7 @@ function experimentController ($scope, ExperimentService, StatsService, Recorder
 
 		const metadata = $scope.filter;
 
-		console.log(experimentStats);
+		ReporterService.generateReport(keyStrokes, keyPairs, experimentStats, metadata);
 	}
 
 
