@@ -39,12 +39,44 @@
 					<!-- KEYS -->
 					<div class="col-sm-12">
 						<label class="field-label">Target Keys:</label>
-						<!-- <p class="help-block">Begin experiment with the {{filter.key_left}} key.</p> -->
+						<p class="help-block">Please start experiment with the {{filter.key_left}} key.</p>
 						<div class="search-box">
 							<input type="text" placeholder="Left" ng-model="filter.key_left">
 						</div>
 						<div class="search-box">
 							<input type="text" placeholder="Right" ng-model="filter.key_right">
+						</div>
+					</div>
+
+					<!-- HAND USED -->
+					<div class="col-sm-12">
+
+						<label class="field-label">Hand Used:</label>
+
+						<div class="search-box">
+
+							<select 
+								class="form-control" 
+								ng-model="filter.hand_used" 
+								ng-options="hand for hand in hands">
+							</select>
+
+						</div>
+					</div>
+
+					<!-- DOMINANT HAND -->
+					<div class="col-sm-12">
+
+						<label class="field-label">Dominant Hand:</label>
+
+						<div class="search-box">
+
+							<select 
+								class="form-control" 
+								ng-model="filter.hand_dominant" 
+								ng-options="hand for hand in dominant_hands">
+							</select>
+
 						</div>
 					</div>
 
@@ -67,9 +99,23 @@
 
 					<!-- SUBMIT -->
 					<div class="col-sm-12">
+						<!-- RESET EXPERIMENT -->
 						<div class="search-box">
-							<button ng-click="loadDefaults()" class="btn btn-success btn-splash">Reset</button>
-							<button ng-click="beginExperiment()" class="btn btn-success btn-splash">Begin</button>
+							<button 
+								ng-click="loadDefaults()" 
+								class="btn btn-danger">
+								Reset Experiment
+							</button>
+						</div>
+
+						<!-- BEGIN EXPERIMENT -->
+						<div class="search-box">
+							<button 
+								ng-click="beginExperiment()" 
+								ng-disabled = "rawData"
+								class="btn btn-success">
+								Begin Experiment
+							</button>
 						</div>
 					</div>
 
@@ -78,8 +124,33 @@
 					<div class="pull-left">
 						<div class="col-sm-12">
 							<label class="field-label">
-								Recorder: {{ recorder_state }}
+								Experiment Status: {{ recorder_state }}
 							</label>
+						</div>
+					</div>
+
+
+					<!-- EXPERIMENT RESULTS -->
+					<div class="col-sm-12">
+						
+						<!-- SAVE STATISTICS -->
+						<div class="search-box">
+							<button 
+								ng-click="saveStats()"
+								ng-show = "statsReport"
+								class="btn btn-info">
+								Save Experiment Stats
+							</button>
+						</div>
+
+						<!-- SAVE RAW DATA -->
+						<div class="search-box">	
+							<button 
+								ng-click="saveRawData()" 
+								ng-show = "rawData"
+								class="btn btn-info">
+								Save Experiment Raw Data
+							</button>
 						</div>
 					</div>
 
