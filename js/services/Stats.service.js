@@ -10,12 +10,8 @@ function statsService () {
     /* Compute All Statistics for Experiment */
     const computeStatsForExperiment = (targetKeys, keyPairs, keyStrokes) => {
         
-        console.log(`Target Keys: ${targetKeys}`);
-        console.log("Key Pairs: ", keyPairs);
-        console.log("Num Key Strokes Recorded: ", keyStrokes.length)
-        console.log("Key Strokes: ", keyStrokes);
-
         const responseTimeStats = computeResponseTimeStats(targetKeys, keyPairs);
+        
         const keyAccuracyStats  = computeKeyAccuracyStats(targetKeys, keyStrokes);
 
         return { responseTimeStats, keyAccuracyStats };
