@@ -15,9 +15,9 @@ let mainWindow = null;
 function createWindow () {
 
     const name = "Dexterity Experiment";
-    const height = 700;
+    const height = 1000;
     const width = 800;
-    const resizable = false;
+    const resizable = true;
 
     // Create the browser window.
     mainWindow = new BrowserWindow({ name, height, width, resizable });
