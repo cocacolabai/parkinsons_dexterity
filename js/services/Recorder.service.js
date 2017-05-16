@@ -12,11 +12,11 @@ function recorderService ($rootScope) {
         "READY"    : 1,
         "STARTED"  : 2,
         "STOPPED"  : 3,
-        properties: {
-            0: "Waiting",
-            1: "Ready",
-            2: "Started",
-            3: "Stopped"
+        stateTitle: {
+            0: "Waiting To Begin",
+            1: "Ready To Start - please click first key to start",
+            2: "Running",
+            3: "Completed. Reset experiment before running again."
         }
     }
 
@@ -67,7 +67,7 @@ function recorderService ($rootScope) {
 
     const setRecorderState = function (stateEnum) {
         recorderState = stateEnum;
-        const state_value = RecorderStateEnum.properties[stateEnum];
+        const state_value = RecorderStateEnum.stateTitle[stateEnum];
         $rootScope.$broadcast('recorder:state_change', state_value);
     }
 
