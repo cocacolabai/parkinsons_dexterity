@@ -30,9 +30,6 @@ app.factory('ReporterService', () => {
 
     const generateReport = (keyStrokes, keyPairs, statistics, metadata) => {
 
-        console.log(statistics);
-
-        
         let content = [];
 
         // Title
@@ -46,7 +43,7 @@ app.factory('ReporterService', () => {
 
         // Section - Experiment Stats - Response Time
         content.push(generateSectionTitle("Experiment Statistics"));
-        content.push(generateSectionSubTitle("Response Times (miliseconds)"));
+        content.push(generateSectionSubTitle("Response Times (milliseconds)"));
         content.push(generateSectionContentForResponseTimes(statistics.responseTimeStats));
 
         // Section - Experiment Stats - Target Key Accuracy
@@ -55,7 +52,7 @@ app.factory('ReporterService', () => {
 
 
         // Generate PDF
-        pdfMake.createPdf({ content, styles }).download("experiment_output");
+        return pdfMake.createPdf({ content, styles })//.download("experiment_output");
 
         /*
             Raw Data (csv)
@@ -127,6 +124,8 @@ app.factory('ReporterService', () => {
         content.push(`Duration: ${metadata.duration}s`);
         content.push(`First Key: ${metadata.key_left}`);
         content.push(`Second Key: ${metadata.key_right}`);
+        content.push(`Hand Used: ${metadata.hand_used}`);
+        content.push(`Dominant Hand: ${metadata.hand_dominant}`);
         content.push(`Keyboard Rotation: ${metadata.rotation}`);
         return { stack: content, style: ['sectionContent'] };
     }
