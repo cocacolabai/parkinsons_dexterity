@@ -10,13 +10,19 @@ function experimentController ($scope, ExperimentService, StatsService, Recorder
 	/* Set Default Experiment Form Options */
 	const loadDefaults = () => {
 		$scope.filter = {};
-		$scope.filter.id = 1;
-		$scope.filter.name = "Kurt DaCosta";
-		$scope.filter.duration = 1;
+		$scope.rawData = null;
+		$scope.statsReport = null;
+		$scope.filter.id = null;
+		$scope.filter.name = null;
+		$scope.filter.duration = 2;
 		$scope.filter.rotation = "0";
+		$scope.filter.hand_used = "";
+		$scope.filter.hand_dominant = "";
 		$scope.filter.key_left = "W".toLowerCase();
 		$scope.filter.key_right = "O".toLowerCase();
 		$scope.rotations = ["0", "90", "180", "270"];
+		$scope.hands = ["left", "right"];
+		$scope.dominant_hands = ["left", "right"];
 		RecorderService.resetRecorder();
 	};
 
@@ -29,8 +35,32 @@ function experimentController ($scope, ExperimentService, StatsService, Recorder
 	});
 
 
+	const saveRawData = () => {
+		// Get header keys
+		let keys = _.keys($scope.rawData[0]);
+
+		// Convert to csv string
+		let csv = keys.join(",");
+		csv += "\n";
+
+		// Append row data
+		$scope.rawData.forEach( (row) => {
+			csv += `${row["key"]}, ${row["time"]} \n`;
+		});
+
+		// Save file
+		saveAs(new File([csv], "experiment.csv", { type: "text/csv;charset=utf-8" }));
+	}
+
+	const saveStats = () => {
+		$scope.statsReport.download("experiment_output");
+	}
+
+
 	/* Experiment Completion Handler */
 	const experimentStatistics = (keyStrokes) => {
+
+		$scope.rawData = keyStrokes;
 
 		const keyPairs = ExperimentService.computeKeyStrokePairs(keyStrokes);
 		
@@ -40,7 +70,7 @@ function experimentController ($scope, ExperimentService, StatsService, Recorder
 
 		const metadata = $scope.filter;
 
-		ReporterService.generateReport(keyStrokes, keyPairs, experimentStats, metadata);
+		$scope.statsReport = ReporterService.generateReport(keyStrokes, keyPairs, experimentStats, metadata);
 	}
 
 
@@ -57,5 +87,5 @@ function experimentController ($scope, ExperimentService, StatsService, Recorder
 
 
 	/* Add Functions to Controller scope */
-	$scope = _.merge($scope, { loadDefaults, beginExperiment });
+	$scope = _.merge($scope, { loadDefaults, beginExperiment, saveStats, saveRawData });
 }
